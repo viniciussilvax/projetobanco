@@ -10,7 +10,8 @@ class Conta:
         self.__cliente: Cliente = cliente
         self.__saldo: float = 0.0
         self.__limite: float = 100
-        self.__saldo__total: float = self._calcula_saldo_total
+        self.__saldo_total: float = self._calcula_saldo_total
+        Conta.id += 1
 
     @property
     def numero(self: object) -> int:
@@ -39,3 +40,10 @@ class Conta:
     @property
     def _calcula_saldo_total(self: object) -> float:
         return self.saldo + self.limite
+
+    @property
+    def saldo_total(self: object) -> float:
+        return self.__saldo_total
+
+    def __str__(self: object) -> str:
+        return f'ID Conta: {self.numero}\nCliente: {self.cliente.nome}\nSaldo Total: {formato_moeda(self.saldo_total)}'
