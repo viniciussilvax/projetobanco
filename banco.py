@@ -1,5 +1,6 @@
 from typing import List
 from time import sleep
+from os import system
 
 from models.cliente import Cliente
 from models.conta import Conta
@@ -13,7 +14,37 @@ def main() -> None:
 
 
 def menu() -> None:
-    pass
+    print('==============================')
+    print('===========Terminal===========')
+    print('==============================')
+
+    print('Selecione uma opção: ')
+    print('1 - Criar Conta')
+    print('2 - Efetuar Saque')
+    print('3 - Efetuar Depósito')
+    print('4 - Efetuar Transferência')
+    print('5 - Listar Contas')
+    print('6 - Sair Sistema')
+
+    op: int = int(input())
+    if op == 1:
+        criar_conta()
+    elif op == 2:
+        sacar()
+    elif op == 3:
+        depositar()
+    elif op == 4:
+        transferir()
+    elif op == 5:
+        listar_contas()
+    elif op == 6:
+        print('Volte sempre')
+        sleep(2)
+        exit(0)
+    else:
+        print('Opção Inválida')
+        sleep(1)
+        menu()
 
 
 def criar_conta() -> None:
