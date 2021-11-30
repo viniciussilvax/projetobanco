@@ -1,5 +1,6 @@
 from typing import List
 from time import sleep
+from os import system
 
 from models.cliente import Cliente
 from models.conta import Conta
@@ -29,11 +30,11 @@ def menu() -> None:
     if op == 1:
         criar_conta()
     elif op == 2:
-        sacar()
+        efetuar_saque()
     elif op == 3:
-        depositar()
+        efetuar_deposito()
     elif op == 4:
-        transferir()
+        efetuar_transferencia()
     elif op == 5:
         listar_contas()
     elif op == 6:
@@ -43,7 +44,8 @@ def menu() -> None:
     else:
         print('Opção Inválida')
         sleep(1)
-        menu()
+    menu()
+    system('clear')
 
 
 def criar_conta() -> None:
@@ -66,20 +68,79 @@ def criar_conta() -> None:
     menu()
 
 
-def sacar() -> None:
-    pass
+def efetuar_saque() -> None:
+    if len(contas) > 0:
+        numero: int = int(input('Informe o número da conta: '))
+
+        conta: Conta = buscar_conta_numero(numero)
+
+        if conta:
+            valor: float = float(input('Informe o valor do saque: '))
+
+            conta.sacar(valor)
+        else:
+            print('Conta inexistente!')
+    else:
+        print('Sem contas cadastradas.')
+    sleep(2)
+    menu()
 
 
-def depositar() -> None:
-    pass
+def efetuar_deposito() -> None:
+    if len(contas) > 0:
+        numero: int = int(input('Informe o número da conta: '))
+
+        conta: Conta = buscar_conta_numero(numero)
+
+        if conta:
+            valor: float = float(input('Informe o valor para o depósito: '))
+
+            conta.depositar(valor)
+
+        else:
+            print(f'Conta {conta} não encontrada!')
+    else:
+        print('Não existem contas cadastradas!')
+    sleep(2)
+    menu()
 
 
-def transferir() -> None:
-    pass
+def efetuar_transferencia() -> None:
+    if len(contas) > 0:
+        numero_origem: int = int(input('Informe o número da sua conta: '))
+        conta_origem: Conta = buscar_conta_numero(numero_origem)
+
+        if conta_origem:
+            numero_destino: int = int(input('Informe a conta destino: '))
+            conta_destino: Conta = buscar_conta_numero(numero_destino)
+
+            if conta_destino:
+                valor: float = float(input('Informe o valor da transferência: '))
+                conta_origem.transferir(conta_destino, valor)
+            else:
+                print(f'Conta {conta_destino} não encontrada!')
+        else:
+            print(f'Conta {numero_origem} não encontrada!')
+
+    else:
+        print('Sem contas cadastradas!')
+    sleep(2)
+    menu()
 
 
 def listar_contas() -> None:
-    pass
+    if len(contas) > 0:
+        print('Contas Cadastradas: ')
+
+        for conta in contas:
+            print(conta)
+            print('----------')
+            sleep(1)
+
+    else:
+        print('Nenhuma conta cadastrada!')
+    sleep(2)
+    menu()
 
 
 def buscar_conta_numero(numero: int) -> Conta:
