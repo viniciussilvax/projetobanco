@@ -1,6 +1,5 @@
 from typing import List
 from time import sleep
-from os import system
 
 from models.cliente import Cliente
 from models.conta import Conta
@@ -48,7 +47,23 @@ def menu() -> None:
 
 
 def criar_conta() -> None:
-    pass
+    print('Informe os dados do Cliente: ')
+    nome: str = input('Nome Cliente: ')
+    cpf: str = input('CPF Cliente: ')
+    nascimento: str = input('Data Nascimento Cliente: ')
+
+    cliente: Cliente = Cliente(nome, cpf, nascimento)
+
+    conta: Conta = Conta(cliente)
+
+    contas.append(conta)
+
+    print('Conta criada com sucesso. ')
+    print('Dados Conta: ')
+    print('--------------------------')
+    print(conta)
+    sleep(2)
+    menu()
 
 
 def sacar() -> None:
